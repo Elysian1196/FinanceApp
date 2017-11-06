@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Finance App</string>
+    <string name="graphButton">Graph</string>
+    <string name="budgetButton">Budget</string>
+    <string name="multiButton">Online</string>
+    <string name="purchaseButton">Add Purchases</string>
 </resources>
