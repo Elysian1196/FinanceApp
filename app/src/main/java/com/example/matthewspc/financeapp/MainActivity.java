@@ -4,15 +4,28 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
+    private String spendGoal;
+    private String spendDate;
+    private String spendDaily;
+    private String spendLeft;
+    private TextView dateResult;
+    private TextView spendResult;
+    private TextView budjetResult;
+    private TextView budjetLeftResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dateResult=(TextView)this.findViewById(R.id.dateResult);
+        spendResult=(TextView)this.findViewById(R.id.spendResult);
+        budjetResult=(TextView)this.findViewById(R.id.budgetResult);
+        budjetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
     }
 
     public void updateProfile(View view) //defines listener for the UpdateProfile Activity
@@ -30,11 +43,21 @@ public class MainActivity extends AppCompatActivity {
         Intent expensesTable = new Intent(MainActivity.this, ExpensesTable.class);
         startActivity(expensesTable);
     }
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         //when we come back from the UpdateProfile activity
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                //this doesn't do anything yet
+                spendGoal = data.getStringExtra("spendGoal");//get extras
+                spendDate = data.getStringExtra("spendDate");
+                spendDaily = data.getStringExtra("spendDaily");
+                spendLeft = data.getStringExtra("spendLeft");
+
+                spendResult.setText(spendGoal);
+                dateResult.setText(spendDate);
+                budjetResult.setText(spendDaily);
+                //customAdapter.expenseAdd(name,notes);//add expense to list
+                //customAdapter.notifyDataSetChanged();//tells adapter to chanage listView
             }
         }
     }
