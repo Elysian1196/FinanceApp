@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,175 +10,116 @@
         android:id="@+id/goalDateTextView"
         android:layout_width="70dp"
         android:layout_height="24dp"
-        android:text="Goal Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335" />
+        android:layout_alignBaseline="@+id/budgetLeftResult"
+        android:layout_alignBottom="@+id/budgetLeftResult"
+        android:layout_toLeftOf="@+id/expensesButton"
+        android:layout_toStartOf="@+id/expensesButton"
+        android:text="Goal Date" />
 
     <Button
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignBaseline="@+id/expensesButton"
+        android:layout_alignBottom="@+id/expensesButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:onClick="updateProfile"
-        android:text="@string/updateButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:text="@string/updateButton" />
 
     <Button
         android:id="@+id/groupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="83dp"
         android:onClick="groupsButton"
-        android:text="@string/groupButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.957"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:text="@string/groupButton" />
 
     <Button
         android:id="@+id/expensesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignBaseline="@+id/groupButton"
+        android:layout_alignBottom="@+id/groupButton"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@+id/groupButton"
+        android:layout_toStartOf="@+id/groupButton"
         android:onClick="expensesButton"
-        android:text="@string/ExpensesButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131" />
+        android:text="@string/ExpensesButton" />
 
     <TextView
         android:id="@+id/goalSpendingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="212dp"
-        android:text="Goal to Spend"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_alignBaseline="@+id/dateResult"
+        android:layout_alignBottom="@+id/dateResult"
+        android:layout_alignLeft="@+id/budgetLeftTextView"
+        android:layout_alignStart="@+id/budgetLeftTextView"
+        android:text="Goal to Spend" />
 
     <TextView
         android:id="@+id/dailyBudgetTextView"
         android:layout_width="86dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Daily Budget"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
+        android:layout_alignBottom="@+id/spendResult"
+        android:layout_alignLeft="@+id/goalSpendingTextView"
+        android:layout_alignStart="@+id/goalSpendingTextView"
+        android:text="Daily Budget" />
 
     <TextView
         android:id="@+id/dateResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.325" />
+        android:layout_above="@+id/spendResult"
+        android:layout_alignLeft="@+id/spendResult"
+        android:layout_alignStart="@+id/spendResult"
+        android:layout_marginBottom="45dp"
+        android:text="@string/Placeholder" />
 
     <TextView
         android:id="@+id/spendResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        android:layout_above="@+id/budgetResult"
+        android:layout_alignLeft="@+id/budgetResult"
+        android:layout_alignStart="@+id/budgetResult"
+        android:layout_marginBottom="51dp"
+        android:text="@string/Placeholder" />
 
     <TextView
         android:id="@+id/budgetResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529" />
+        android:layout_alignBaseline="@+id/budgetLeftTextView"
+        android:layout_alignBottom="@+id/budgetLeftTextView"
+        android:layout_alignLeft="@+id/budgetLeftResult"
+        android:layout_alignStart="@+id/budgetLeftResult"
+        android:text="@string/Placeholder" />
 
     <TextView
         android:id="@+id/budgetLeftTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Budget Left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        android:layout_above="@+id/goalDateTextView"
+        android:layout_marginBottom="47dp"
+        android:layout_toLeftOf="@+id/expensesButton"
+        android:layout_toStartOf="@+id/expensesButton"
+        android:text="Budget Left" />
 
     <TextView
         android:id="@+id/budgetLeftResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/Placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.649"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        android:layout_above="@+id/groupButton"
+        android:layout_marginBottom="45dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:layout_toEndOf="@+id/goalSpendingTextView"
+        android:layout_toRightOf="@+id/goalSpendingTextView"
+        android:text="@string/Placeholder" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
