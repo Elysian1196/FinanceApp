@@ -101,17 +101,12 @@ public class MainActivity extends AppCompatActivity
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Expense Percentages");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(17);
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.WHITE);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.MAGENTA);
-        colors.add(Color.LTGRAY);
+        colors.add(Color.rgb(253,205,224));
+        colors.add(Color.rgb(187,226,252));
 
         pieDataSet.setColors(colors);
 
