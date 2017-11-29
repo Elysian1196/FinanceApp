@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     public void expensesButton(View view) //defines listener for the ExpensesTable Activity
     {
-        Intent expensesTable = new Intent(MainActivity.this, ExpensesTable.class);
-        startActivity(expensesTable);
+        startActivity(new Intent(MainActivity.this, ExpensesTable.class));
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
