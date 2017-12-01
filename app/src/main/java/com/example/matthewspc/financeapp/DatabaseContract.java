@@ -16,7 +16,7 @@ public final class DatabaseContract {
         public static final String _ID = "_id";
         public static final String COLUMN_PURCHASE_NAME = "purchaseName";
         public static final String COLUMN_PURCHASE_COST = "purchaseCost";
-        public static final String COLUMN_PURCHASE_TIMEDATE = "purchaseTimeDate";
+        public static final String COLUMN_PURCHASE_DATE = "purchaseDate";
         public static final String COLUMN_PURCHASE_TAG = "purchaseTag";
 
         //This is the creator. Call it when you make the table in the main app.
@@ -24,8 +24,10 @@ public final class DatabaseContract {
                 TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_PURCHASE_NAME + " TEXT, " +
-                COLUMN_PURCHASE_COST + " TEXT, " + //I have this as text for now but it should probably be a double. Maybe we should just set it as int, and the first two places are cents.
-                COLUMN_PURCHASE_TIMEDATE + " TEXT," + //Not sure if there is a date setting for sqlite.
+                COLUMN_PURCHASE_COST + " TEXT, " + //I don't want to set this as real, I like the idea of setting it as int, and the first two places are cents.
+                COLUMN_PURCHASE_DATE + " TEXT," + //Not sure if there is a date setting for sqlite.
                 COLUMN_PURCHASE_TAG + " TEXT" + ")"; //This one I think is fine.
     }
+
+
 }
