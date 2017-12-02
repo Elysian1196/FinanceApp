@@ -48,6 +48,7 @@ public class GroupProfilePage extends AppCompatActivity implements View.OnClickL
         buttonLogout.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View view) {
         //if logout is pressed

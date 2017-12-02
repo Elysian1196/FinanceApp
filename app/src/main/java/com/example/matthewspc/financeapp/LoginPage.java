@@ -89,6 +89,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         //if the email and password are not empty
         //displaying a progress dialog
 
+
+
         progressDialog.setMessage("Logging in, Please Wait...");
         progressDialog.show();
 

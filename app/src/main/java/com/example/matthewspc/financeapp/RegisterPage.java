@@ -24,10 +24,10 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
     private Button buttonSignup;
     private TextView textViewSignin;
 
+
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

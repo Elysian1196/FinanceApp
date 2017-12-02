@@ -49,6 +49,7 @@
                 android:layout_margin="15dp"
                 android:text="Signup" />
 
+
             <TextView
                 android:text="Already Registered? Log in here"
                 android:id="@+id/textViewSignin"
