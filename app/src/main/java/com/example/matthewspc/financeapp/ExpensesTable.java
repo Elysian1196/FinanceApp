@@ -18,7 +18,7 @@ import java.util.Date;
 public class ExpensesTable extends AppCompatActivity {
 
     ListView expensesList;
-    public SQLiteDatabase database = new ExpensesHelper(this).getWritableDatabase();
+    public ExpensesHelper database = new ExpensesHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +31,8 @@ public class ExpensesTable extends AppCompatActivity {
         //when we come back from the AddExpense activity
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                ContentValues values = new ContentValues();
-                values.put(DatabaseContract.Expenses.COLUMN_PURCHASE_NAME, data.getStringExtra("purchaseName"));
-                values.put(DatabaseContract.Expenses.COLUMN_PURCHASE_COST, data.getStringExtra("purchaseCost"));
-                Date c = Calendar.getInstance().getTime();
-                values.put(DatabaseContract.Expenses.COLUMN_PURCHASE_DATE, String.valueOf(c));
-                long newRowId = database.insert(DatabaseContract.Expenses.TABLE_NAME, null, values);
+                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), data.getStringExtra("purchaseCost"), data.getStringExtra("purchaseTag"));
+                long uhOh = database.addExpense(newBoi);
             } if (resultCode == Activity.RESULT_CANCELED) {
 
             }

@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
-    private String[] xData = {"Groceries", "Dining Out","Rent","Utilities","Travel","Clothes","Other"};
+    public String[] xData = {"Groceries", "Dining Out","Rent","Utilities","Travel","Clothes","Other"};
+
     PieChart pieChart;
 
     @Override
