@@ -1,31 +1,24 @@
 package com.example.matthewspc.financeapp;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import static java.lang.Math.toIntExact;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -35,9 +28,8 @@ public class MainActivity extends AppCompatActivity
     private String spendLeft;
     private TextView dateResult;
     private TextView spendResult;
-    private TextView budgetResult;
-    private TextView budgetLeftResult;
-    private ProfileDatabase profile;
+    private TextView budjetResult;
+    private TextView budjetLeftResult;
 
 
     private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
@@ -49,28 +41,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        budgetResult=(TextView)this.findViewById(R.id.budgetResult);
-        budgetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
+        budjetResult=(TextView)this.findViewById(R.id.budgetResult);
+        budjetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
         Log.d("MainActivity", "onCreate: starting to create chart");
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
-        profile = new ProfileDatabase(this);//creates database
-        //if (checkDatabase())
-        //{
-        //    Cursor cursor = profile.getLog();
-        //    if (cursor.moveToFirst()){
-        //        do{
-        //            spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
-        //            spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
-        //            spendDaily = "$";
-        //            spendLeft = "$";
-        //            // do what ever you want here
-        //        }while(cursor.moveToNext());
-        //    }
-        //    cursor.close();
-        //}
+        //Created description object and set the text to that, may differ from yours but idk why?
+        Description text = new Description();
+        text.setText("Total budget: "+spendGoal);
+        pieChart.setDescription(text);
 
-        pieChart.setDescription("Total budget: "+spendGoal);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
@@ -88,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     public void groupsButton(View view)//defines listener for the Groups Activity
     {
         //the listener doesn't do anything yet (the listener is defined in the XML file)
+        startActivity(new Intent(MainActivity.this, RegisterPage.class));
     }
 
     public void expensesButton(View view) //defines listener for the ExpensesTable Activity
@@ -101,15 +82,14 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 spendGoal = data.getStringExtra("spendGoal");//get extras
                 spendDate = data.getStringExtra("spendDate");
-                spendDaily = "$";
-                spendDaily = "$";
+                spendDaily = data.getStringExtra("spendDaily");
+                spendLeft = data.getStringExtra("spendLeft");
 
-                profile.updateProfile(spendGoal,spendDate);//adds new log with values
-
-                //spendResult.setText(spendGoal);
-                //dateResult.setText(spendDate);
-                //budgetResult.setText(spendDaily);
-                //budgetLeftResult.setText(spendLeft);
+                spendResult.setText(spendGoal);
+                dateResult.setText(spendDate);
+                budjetResult.setText(spendDaily);
+                //customAdapter.expenseAdd(name,notes);//add expense to list
+                //customAdapter.notifyDataSetChanged();//tells adapter to chanage listView
             }
         }
     }
@@ -150,48 +130,19 @@ public class MainActivity extends AppCompatActivity
         pieChart.invalidate();
     }
 
-    private Date convertTime(String date) throws ParseException
-    {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.parse(date);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
     }
-
-    private Date getTime() throws ParseException
-    {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date= new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return date;
-    }
-
-    private int diffTime(Date today,Date goal)
-    {
-        long diff = goal.getTime() - today.getTime();
-        return toIntExact(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-    }
-
-    private String dailyCalc(int days, Editable money)
-    {
-        Double moneyD = Double.parseDouble(String.valueOf(money));
-        Double calc = moneyD/days;
-        return Double.toString(calc);
-    }
-
-    private boolean checkDatabase()
-    {
-        SQLiteDatabase db = profile.getWritableDatabase();
-        String count = "SELECT count(*) FROM table";
-        Cursor mcursor = db.rawQuery(count, null);
-        mcursor.moveToFirst();
-        int icount = mcursor.getInt(0);
-        if(icount>0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                startActivity(new Intent(this, GroupProfilePage.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
 }
