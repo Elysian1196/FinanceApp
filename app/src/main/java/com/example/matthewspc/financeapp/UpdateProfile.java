@@ -57,8 +57,6 @@ public class UpdateProfile extends AppCompatActivity {
 
                         intent.putExtra("spendGoal", "$"+spend_goal.getText().toString());
                         intent.putExtra("spendDate", (datePicker.getMonth()+1)+"/"+datePicker.getDayOfMonth()+"/"+datePicker.getYear());
-                        intent.putExtra("spendDaily", "$"+dailyCalc(diff,spend_goal.getText()));
-                        intent.putExtra("spendLeft", "$");
                         setResult(RESULT_OK, intent);
                         finish();
                     }
