@@ -78,7 +78,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
 
-        firebaseAuth.createUserWithEmailAndPassword("user email here", "user password here")
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
