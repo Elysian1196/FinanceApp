@@ -26,7 +26,7 @@ public final class DatabaseContract {
                 COLUMN_PURCHASE_NAME + " TEXT, " +
                 COLUMN_PURCHASE_COST + " TEXT, " + //I don't want to set this as real, I like the idea of setting it as int, and the first two places are cents.
                 COLUMN_PURCHASE_DATE + " TEXT," + //Not sure if there is a date setting for sqlite.
-                COLUMN_PURCHASE_TAG + " TEXT" + ")"; //This one I think is fine.
+                COLUMN_PURCHASE_TAG + " TEXT" + ")"; //This one I think is fine..
     }
 
 
