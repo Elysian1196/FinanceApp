@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.matthewspc.financeapp">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +21,10 @@
         </activity>
         <activity android:name=".UpdateProfile" />
         <activity android:name=".ExpensesTable" />
-        <activity android:name=".AddExpense"></activity>
+        <activity android:name=".AddExpense" />
+        <activity android:name=".RegisterPage" />
+        <activity android:name=".GroupProfilePage" />
+        <activity android:name=".LoginPage"></activity>
     </application>
 
 </manifest>
