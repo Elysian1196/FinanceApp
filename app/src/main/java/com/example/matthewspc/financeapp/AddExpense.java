@@ -18,18 +18,23 @@ public class AddExpense extends AppCompatActivity {
     }
     public void add(){//this is the submission button method
         Button btn = (Button) findViewById(R.id.addExpenseSubmit);
-        final EditText description = (EditText) findViewById(R.id.descriptionInput);
+        final EditText nameInput = (EditText) findViewById(R.id.NameInput);
+        final EditText costInput = (EditText) findViewById(R.id.CostInput);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //here we send back anything needed to make the entry object
                 Intent intent = new Intent();
-                intent.putExtra("description", description.getText().toString());
+                intent.putExtra("purchaseName", nameInput.getText().toString());
+                intent.putExtra("purchaseCost", costInput.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
     }
+
+
+
     public void cancel(){//if we don't want to put anything in
         //we return nothing
         Button btn = (Button) findViewById(R.id.addExpenseCancel);
