@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,16 +39,40 @@ public class GroupProfilePage extends AppCompatActivity implements View.OnClickL
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //initializing views
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
         //displaying logged in user name
-        textViewUserEmail.setText("Welcome "+user.getEmail());
+        final TextView userEmail = (TextView) findViewById(R.id.textViewUserEmail);
+        userEmail.setText("Welcome "+user.getEmail());
 
         //adding listener to button
         buttonLogout.setOnClickListener(this);
     }
+    public void joinGroup(View view) //defines listener for the Join Group Activity
+    {
+        startActivityForResult(new Intent(GroupProfilePage.this, JoinGroup.class), 1);
+    }
 
+    public void createGroup(View view)//defines listener for the Create Group Activity
+    {
+        //the listener  is defined in the XML file
+        startActivityForResult(new Intent(GroupProfilePage.this, CreateGroup.class), 2);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        //when we come back from the Join Group activity
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+
+            }
+        }
+        else if (requestCode == 2){//or from the Create Group Activity
+            if(resultCode == RESULT_OK) {
+
+            }
+        }
+    }
 
     @Override
     public void onClick(View view) {
