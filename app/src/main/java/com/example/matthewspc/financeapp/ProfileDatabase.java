@@ -107,7 +107,7 @@ public class ProfileDatabase extends SQLiteOpenHelper
     {
         Cursor cursor = getLog();
         Double spend = Double.parseDouble(value);
-        Double pastSpend = Double.parseDouble(cursor.getString(cursor.getColumnIndex(GOAL)));
+        Double pastSpend = Double.parseDouble(cursor.getString(cursor.getColumnIndex(SPENT)));
         updateProfile(Double.toString(spend+pastSpend));
     }
 }

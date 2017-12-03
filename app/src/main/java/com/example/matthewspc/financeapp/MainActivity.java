@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private String spendGoal;
     private String spendDate;
     private String spendLeft;
+    private String spentGoal;
     private TextView goalDate;
     private TextView budgetLeftResult;
     private ProfileDatabase profile;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         if (profile.checkDatabase())
         {
             try {
+                //profile.spend("12");//TEST
                 convertDatabase();
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -195,9 +197,11 @@ public class MainActivity extends AppCompatActivity
         Cursor cursor = profile.getLog();
         if (cursor.moveToFirst()) {
             spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+            spentGoal = cursor.getString(cursor.getColumnIndex(profile.SPENT));
             spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
             double goal = Double.parseDouble(spendGoal);
-            spendLeft = Double.toString(goal);
+            double spent = Double.parseDouble(spentGoal);
+            spendLeft = Double.toString(goal-spent);
 
             goalDate.setText(spendDate);
             budgetLeftResult.setText("$" + spendLeft);
