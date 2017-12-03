@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "866431709587-fg88v7583h9crq6sv80kbevbbljf5pv8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.matthewspc.financeapp",
+            "certificate_hash": "0823f27e5f867f199edc145f1b313c8e34b468c3"
+          }
+        },
+        {
+          "client_id": "866431709587-n6hmif8mqbqflf40quormqvg38pst87r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.matthewspc.financeapp",
+            "certificate_hash": "0bb9d1c16929fb11455b64b1cbd5d949e09b551c"
+          }
+        },
+        {
           "client_id": "866431709587-c4fboafp285qi3h8i75m0eem9g5f6634.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
