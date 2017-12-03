@@ -2,15 +2,21 @@ package com.example.matthewspc.financeapp;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +25,8 @@ public class ExpensesTable extends AppCompatActivity {
 
     ListView expensesList;
     public ExpensesHelper database = new ExpensesHelper(this);
+    SimpleCursorAdapter customAdapter;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +46,40 @@ public class ExpensesTable extends AppCompatActivity {
             }
         }
     }
+
+
+    private void showExpenses() {
+        Cursor cursor = database.getAllExpenses();//first we get a cursor
+        if (cursor == null) {//and check if null, etc
+            return;
+        }
+        if(cursor.getCount() == 0) {
+            return;
+        }
+        final String[] columns = new String[] {database.KEY_NAME, database.KEY_COST, database.KEY_DATE, database.KEY_TAG};
+        int[] boundTo = new int[] {R.id.NameT, R.id.CostT, R.id.DateT, R.id.TagT};
+        customAdapter = new SimpleCursorAdapter(context, R.layout.expenses_layout, cursor, columns, boundTo, 0){
+            //here we create a simpleCursor Adapter from the cursor
+            @Override
+            public void bindView(final View view, Context context, final Cursor cursor ) {//we still have to overwrite the bindview
+                final int id_value = cursor.getInt(cursor.getColumnIndex("_id"));
+                super.bindView(view, context, cursor);//we first call the super for most of the stuff
+                Button delete = view.findViewById(R.id.DeleteThisT);//now we add the delete button
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        database.deleteExpense(id_value);
+                        Cursor c = database.getAllExpenses();
+                        customAdapter.swapCursor(c);
+                        notifyDataSetChanged();
+                        expensesList.setAdapter(customAdapter);
+                    }
+                });
+            }
+        };
+        expensesList.setAdapter(customAdapter);
+    }
+
 
 
 
@@ -61,4 +103,18 @@ public class ExpensesTable extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

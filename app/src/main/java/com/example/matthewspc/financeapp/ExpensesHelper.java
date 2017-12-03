@@ -152,57 +152,5 @@ public class ExpensesHelper extends SQLiteOpenHelper{
 
 
 
-/*
-
-    private static final int DATABASE_VERSION = 1; //version
-    private static final String DATABASE_NAME = "ExpensesManager";//database name
-    private static final String TABLE_Expenses = "Expenses";//name for the table
-    //table columns
-    public static final String KEY_ID = "_id";
-    public static final String KEY_Description = "description_column";
-    public static final String KEY_Notes = "notes_column";
-    public static final String KEY_Date = "date_column";
-
-    public ExpensesHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(DatabaseContract.Expenses.CREATE_TABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.Expenses.TABLE_NAME);
-        onCreate(sqLiteDatabase);
-    }
-
-    // Getting list Count
-    public int getExpenseCount() {
-        String countQuery = "SELECT  * FROM " + "Expenses";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        int count = cursor.getCount();
-        cursor.close();
-        // return count
-        return count;
-    }
-
-    // Adding new Expense
-    long addExpense (ExpenseLogEntryData Expense) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_PURCHASE_NAME, Expense.getName());
-        values.put(KEY_Notes, Expense.getCost());
-        values.put(KEY_Date, Expense.getDate());
-        // Inserting Row
-        long id = db.insert(TABLE_Expenses, null, values);
-        db.close(); // Closing database connection
-        return id;
-    }
-
-
-*/
 
 }
