@@ -44,7 +44,8 @@ public class ExpensesTable extends AppCompatActivity {
         //when we come back from the AddExpense activity
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), data.getStringExtra("purchaseCost"), data.getStringExtra("purchaseTag"));
+                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), String.valueOf((Double.parseDouble(data.getStringExtra("purchaseCost")))), data.getStringExtra("purchaseTag"));
+
                 long uhOh = database.addExpense(newBoi);
                 showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {

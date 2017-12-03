@@ -55,7 +55,15 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainActivity", "onCreate: starting to create chart");
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
-        profile = new ProfileDatabase(this);//creates database
+
+
+        /*
+
+
+
+
+         */
+        ProfileDatabase profile = new ProfileDatabase(this);//creates database
         /*if (checkDatabase())
         {
             try {
@@ -181,6 +189,8 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
     }
+
+
 
     private void convertDatabase() throws ParseException
     {//converts sqlite cursor to the textview

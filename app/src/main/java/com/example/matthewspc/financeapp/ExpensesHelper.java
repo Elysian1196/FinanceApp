@@ -14,9 +14,8 @@ public class ExpensesHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1; //version
     private static final String DATABASE_NAME = "Expenses";
     //This is the tables name
+
     private static final String TABLE_NAME = "expenses";
-
-
     //These are the columns
     public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name_column";

@@ -18,7 +18,8 @@ public class ProfileDatabase extends SQLiteOpenHelper
     public static final String ID = "_id";
     public static final String GOAL = "spendGoal";
     public static final String DATE = "spendDate";
-    public static final String DATABASE_CREATE = "CREATE TABLE "+DATABASE_TABLE+" ("+ID+" INTEGER PRIMARY KEY, "+GOAL+" TEXT,"+DATE+" Text )";
+    public static final String SPENT = "spendSpent";
+    public static final String DATABASE_CREATE = "CREATE TABLE "+DATABASE_TABLE+" ("+ID+" INTEGER PRIMARY KEY, "+GOAL+" TEXT,"+DATE+" TEXT," +SPENT+ "TEXT )";
 
     public ProfileDatabase(Context context)
     {
