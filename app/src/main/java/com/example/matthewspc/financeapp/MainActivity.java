@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         if (profile.checkDatabase())
         {
             try {
-                //profile.spend("12");//TEST
+                profile.spend("12");//TEST
                 convertDatabase();
             } catch (ParseException e) {
                 e.printStackTrace();
