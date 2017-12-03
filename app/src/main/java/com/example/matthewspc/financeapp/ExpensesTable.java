@@ -24,16 +24,21 @@ import java.util.Date;
 public class ExpensesTable extends AppCompatActivity {
 
     ListView expensesList;
-    public ExpensesHelper database = new ExpensesHelper(this);
+    ExpensesHelper database = new ExpensesHelper(this);
     SimpleCursorAdapter customAdapter;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_table);
+        context = getApplicationContext();
+        expensesList = (ListView) findViewById(R.id.expenseListView);
         addExpense();
         backButton();
+        showExpenses();
+
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //when we come back from the AddExpense activity
@@ -41,6 +46,7 @@ public class ExpensesTable extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), data.getStringExtra("purchaseCost"), data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
+                showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {
 
             }
