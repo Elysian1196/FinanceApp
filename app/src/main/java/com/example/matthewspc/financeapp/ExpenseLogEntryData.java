@@ -40,5 +40,12 @@ public class ExpenseLogEntryData {
         setTag(tt);
     }
 
+    public ExpenseLogEntryData(String h, String n, String TD, String tt){
+        setName(h);
+        setCost(n);
+        date = TD;
+        setTag(tt);
+    }
+
 
 }

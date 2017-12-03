@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity
     private TextView budgetLeftResult;
     private ProfileDatabase profile;
 
-    Context context = getApplicationContext();
+
     ExpensesHelper Finances = new ExpensesHelper(this);
-    SimpleCursorAdapter customAdapter;
+
 
 
     private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
@@ -78,8 +78,11 @@ public class MainActivity extends AppCompatActivity
         pieChart.setEntryLabelTextSize(20);
 
 
-        int keyIterator = Finances.getExpenseCount();
-        for(int k=1; k<=keyIterator; k++){
+        Cursor financeCursor = Finances.getAllExpenses();
+        if (financeCursor == null) {//and check if null, etc
+
+        } else while(financeCursor.getCount() < 0) {
+            int k = financeCursor.getInt(financeCursor.getColumnIndex("_id"));
             ExpenseLogEntryData row = Finances.getExpense(k);
             String priceString = row.getCost();
             double price = Double.valueOf(priceString);
@@ -88,12 +91,9 @@ public class MainActivity extends AppCompatActivity
             each time we iterate through this for loop section Tag will be the current purchases tag (In string form)
             and price will be how much it cost (In a double)
             put what seems right here and tell me when it's ready to rumble.
-             */
-
+            */
+            financeCursor.moveToNext();
         }
-
-
-
         addDataSet();
     }
 

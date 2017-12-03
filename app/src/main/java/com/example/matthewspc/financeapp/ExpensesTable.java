@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ExpensesTable extends AppCompatActivity {
 
@@ -43,9 +45,11 @@ public class ExpensesTable extends AppCompatActivity {
         //when we come back from the AddExpense activity
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), String.valueOf((Double.parseDouble(data.getStringExtra("purchaseCost")))), data.getStringExtra("purchaseTag"));
-
+                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"),
+                        String.format(Locale.getDefault(),"%.2f",(Double.parseDouble(data.getStringExtra("purchaseCost")))),
+                        data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
+                Log.d("Whats the long", uhOh+"");
                 showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {
 
