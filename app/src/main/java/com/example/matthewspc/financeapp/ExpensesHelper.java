@@ -55,6 +55,8 @@ public class ExpensesHelper extends SQLiteOpenHelper{
         values.put(KEY_TAG, Expense.getTag());
         // Inserting Row
         long id = db.insert(TABLE_NAME, null, values);
+        //Substract some monies from the big table.
+
         db.close(); // Closing database connection
         return id;
     }
@@ -114,6 +116,7 @@ public class ExpensesHelper extends SQLiteOpenHelper{
             cursor.close();
             result = true;
         }
+        //Add back some monies from the big table
         db.close();
         return result;
     }

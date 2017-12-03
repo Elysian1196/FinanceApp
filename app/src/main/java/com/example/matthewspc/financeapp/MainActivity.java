@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
 
     public void groupsButton(View view)//defines listener for the Groups Activity
     {
+        startActivity(new Intent(MainActivity.this, RegisterPage.class));
         //the listener doesn't do anything yet (the listener is defined in the XML file)
     }
 
