@@ -52,6 +52,8 @@ public class ProfileDatabase extends SQLiteOpenHelper
         db.close();
     }
 
+
+
     public void removeAll(SQLiteDatabase db)
     {
         db.delete(DATABASE_TABLE, null, null);

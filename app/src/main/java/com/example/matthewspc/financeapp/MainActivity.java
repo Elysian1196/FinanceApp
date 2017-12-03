@@ -12,6 +12,7 @@ import android.util.EventLogTags;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity
     private TextView goalDate;
     private TextView budgetLeftResult;
     private ProfileDatabase profile;
+
+    Context context = getApplicationContext();
+    ExpensesHelper Finances = new ExpensesHelper(this);
+    SimpleCursorAdapter customAdapter;
 
 
     private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
@@ -71,6 +76,23 @@ public class MainActivity extends AppCompatActivity
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelTextSize(20);
+
+
+        int keyIterator = Finances.getExpenseCount();
+        for(int k=0; k<=keyIterator; k++){
+            ExpenseLogEntryData row = Finances.getExpense(k);
+            String priceString = row.getCost();
+            double price = Double.valueOf(priceString);
+            String tag= row.getTag();
+            /*Aight Julia heres where you put the pie chart stuff
+            each time we iterate through this for loop section Tag will be the current purchases tag (In string form)
+            and price will be how much it cost (In a double)
+            put what seems right here and tell me when it's ready to rumble.
+             */
+
+        }
+
+
 
         addDataSet();
     }

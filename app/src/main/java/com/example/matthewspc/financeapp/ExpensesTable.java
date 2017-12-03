@@ -36,7 +36,6 @@ public class ExpensesTable extends AppCompatActivity {
         addExpense();
         backButton();
         showExpenses();
-
     }
 
 
