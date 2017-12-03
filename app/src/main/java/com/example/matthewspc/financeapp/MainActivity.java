@@ -171,16 +171,16 @@ public class MainActivity extends AppCompatActivity
     {
         SQLiteDatabase db = profile.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + profile.DATABASE_TABLE +";", null);
-        cursor.moveToFirst();
-        int count = cursor.getInt(0);
-        if(count>0)
-        {
-            return true;
+        if(cursor != null){
+            cursor.moveToFirst();
+            //int count = cursor.getInt(0);
+            //if(count>0)
+            //{
+            //    return true;
+            //}
+
         }
-        else
-        {
             return false;
-        }
     }
 
 
