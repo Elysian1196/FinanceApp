@@ -54,7 +54,20 @@ public class ProfileDatabase extends SQLiteOpenHelper
         db.close();
     }
 
-
+    public void updateProfile(String spent)//change spent value
+    {
+        SQLiteDatabase db = this.getWritableDatabase();//gets the database
+        Cursor cursor = getLog();
+        String spendGoal = cursor.getString(cursor.getColumnIndex(GOAL));
+        String spendDate = cursor.getString(cursor.getColumnIndex(DATE));
+        removeAll(db);
+        ContentValues expenseValues = new ContentValues();
+        expenseValues.put(GOAL,spendGoal);//sets values for new log
+        expenseValues.put(DATE,spendDate);
+        expenseValues.put(SPENT,spent);
+        db.insert(ProfileDatabase.DATABASE_TABLE,null,expenseValues);//inserts log to database
+        db.close();
+    }
 
     public void removeAll(SQLiteDatabase db)
     {
@@ -88,5 +101,13 @@ public class ProfileDatabase extends SQLiteOpenHelper
             cursor.close();
         }
         return false;
+    }
+
+    public void spend(String value)
+    {
+        Cursor cursor = getLog();
+        Double spend = Double.parseDouble(value);
+        Double pastSpend = Double.parseDouble(cursor.getString(cursor.getColumnIndex(GOAL)));
+        updateProfile(Double.toString(spend+pastSpend));
     }
 }
