@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
 
 
         int keyIterator = Finances.getExpenseCount();
-        for(int k=0; k<=keyIterator; k++){
+        for(int k=1; k<=keyIterator; k++){
             ExpenseLogEntryData row = Finances.getExpense(k);
             String priceString = row.getCost();
             double price = Double.valueOf(priceString);
