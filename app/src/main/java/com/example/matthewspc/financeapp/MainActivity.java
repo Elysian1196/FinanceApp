@@ -1,14 +1,16 @@
 package com.example.matthewspc.financeapp;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Editable;
+import android.util.EventLogTags;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,24 +20,28 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Math.toIntExact;
 
 public class MainActivity extends AppCompatActivity
 {
     private String spendGoal;
     private String spendDate;
-    private String spendDaily;
     private String spendLeft;
-    private TextView dateResult;
-    private TextView spendResult;
-    private TextView budjetResult;
-    private TextView budjetLeftResult;
-
+    private TextView goalDate;
+    private TextView budget;
+    private TextView budgetLeftResult;
+    private ProfileDatabase profile;
 
 
     private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
-    public String[] xData = {"Groceries", "Dining Out","Rent","Utilities","Travel","Clothes","Other"};
-
+    private String[] xData = {"Groceries", "Dining Out","Rent","Utilities","Travel","Clothes","Other"};
     PieChart pieChart;
 
     @Override
@@ -43,16 +49,24 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        budjetResult=(TextView)this.findViewById(R.id.budgetResult);
-        budjetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
+        budget=(TextView)this.findViewById(R.id.budget);
+        goalDate=(TextView)this.findViewById(R.id.goalDate);
+        budgetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
         Log.d("MainActivity", "onCreate: starting to create chart");
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
-        //Created description object and set the text to that, may differ from yours but idk why?
+        profile = new ProfileDatabase(this);//creates database
+        /*if (checkDatabase())
+        {
+            try {
+                convertDatabase();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }*/
         Description text = new Description();
-        text.setText("Total budget: "+spendGoal);
+        text.setText("Total budget: " + spendGoal);
         pieChart.setDescription(text);
-
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
@@ -70,8 +84,6 @@ public class MainActivity extends AppCompatActivity
     public void groupsButton(View view)//defines listener for the Groups Activity
     {
         //the listener doesn't do anything yet (the listener is defined in the XML file)
-        startActivity(new Intent(MainActivity.this, RegisterPage.class));
-        //here is a test comment
     }
 
     public void expensesButton(View view) //defines listener for the ExpensesTable Activity
@@ -85,14 +97,13 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 spendGoal = data.getStringExtra("spendGoal");//get extras
                 spendDate = data.getStringExtra("spendDate");
-                spendDaily = data.getStringExtra("spendDaily");
-                spendLeft = data.getStringExtra("spendLeft");
 
-                spendResult.setText(spendGoal);
-                dateResult.setText(spendDate);
-                budjetResult.setText(spendDaily);
-                //customAdapter.expenseAdd(name,notes);//add expense to list
-                //customAdapter.notifyDataSetChanged();//tells adapter to chanage listView
+                profile.updateProfile(spendGoal,spendDate);//adds new log with values
+                try {
+                    convertDatabase();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -133,19 +144,56 @@ public class MainActivity extends AppCompatActivity
         pieChart.invalidate();
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
+    private Date convertDate(String date) throws ParseException //converts string to date object
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.parse(date);
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add:
-                startActivity(new Intent(this, GroupProfilePage.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+    private Date getDate() throws ParseException//gets the current date
+    {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date= new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return date;
+    }
+
+    private int diffTime(Date today,Date goal)//finds the number of days between today and goal date
+    {
+        long diff = goal.getTime() - today.getTime();
+        return toIntExact(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+    }
+
+    private boolean checkDatabase()//checks if database has data
+    {
+        SQLiteDatabase db = profile.getWritableDatabase();
+        String count = "SELECT count(*) FROM table";
+        Cursor mcursor = db.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
+    private void convertDatabase() throws ParseException
+    {//converts sqlite cursor to the textview
+        Cursor cursor = profile.getLog();
+        if (cursor.moveToFirst()) {
+            spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+            spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
+            double goal = Double.parseDouble(spendGoal);
+            spendLeft = Double.toString(goal - 12);
+
+            goalDate.setText(spendDate);
+            budget.setText("$" + spendGoal);
+            budgetLeftResult.setText("$" + spendLeft);
+        }
+    }
 }
