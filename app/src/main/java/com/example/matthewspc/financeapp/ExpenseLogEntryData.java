@@ -24,8 +24,8 @@ public class ExpenseLogEntryData {
     void setName(String newName){
             name = newName;
         }
-    void setCost(String newNotes){
-            cost = newNotes;
+    void setCost(String newCost){
+            cost = newCost;
         }
     void setTimedate(){
         Date c = Calendar.getInstance().getTime();
