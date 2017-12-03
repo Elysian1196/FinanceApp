@@ -11,27 +11,26 @@
         android:layout_width="400dp"
         android:layout_height="350dp"
 
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"></com.github.mikephil.charting.charts.PieChart>
+        android:layout_above="@+id/expensesButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="94dp"></com.github.mikephil.charting.charts.PieChart>
 
     <TextView
         android:id="@+id/goalDateLabel"
         android:layout_width="70dp"
         android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/budget"
-        android:layout_marginTop="18dp"
-        android:text="Goal Date" />
+        android:layout_above="@+id/budgetLeftLabel"
+        android:layout_centerHorizontal="true"
+        android:text="Goal Date: " />
 
     <Button
         android:id="@+id/updateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/groupButton"
-        android:layout_alignLeft="@+id/goalDateLabel"
-        android:layout_alignStart="@+id/goalDateLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:onClick="updateProfile"
         android:text="@string/updateButton" />
 
@@ -61,20 +60,19 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/budgetLeftResult"
         android:layout_alignBottom="@+id/budgetLeftResult"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp"
-        android:layout_toEndOf="@+id/budgetLeftResult"
-        android:layout_toRightOf="@+id/budgetLeftResult"
+        android:layout_alignLeft="@+id/goalDateLabel"
+        android:layout_alignStart="@+id/goalDateLabel"
         android:text="Budget Left" />
 
     <TextView
         android:id="@+id/budgetLeftResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/goalDate"
-        android:layout_marginTop="19dp"
+        android:layout_above="@+id/expensesButton"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/budgetLeftLabel"
+        android:layout_toRightOf="@+id/budgetLeftLabel"
         tools:text="(Budget left)" />
 
     <TextView
@@ -83,31 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/goalDateLabel"
         android:layout_alignBottom="@+id/goalDateLabel"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/budgetLeftResult"
-        android:layout_toRightOf="@+id/budgetLeftResult"
-        tools:text="(Goal date)" />
+        android:layout_toEndOf="@+id/goalDateLabel"
+        android:layout_toRightOf="@+id/goalDateLabel"
+        tools:text="Goal date2" />
 
-    <TextView
-        android:id="@+id/budgetLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/budget"
-        android:layout_alignBottom="@+id/budget"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/budget"
-        android:layout_toRightOf="@+id/budget"
-        android:text="Budget" />
-
-    <TextView
-        android:id="@+id/budget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        tools:text="(Budget)" />
 
 </RelativeLayout>

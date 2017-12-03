@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity
     private String spendDate;
     private String spendLeft;
     private TextView goalDate;
-    private TextView budget;
     private TextView budgetLeftResult;
     private ProfileDatabase profile;
 
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        budget=(TextView)this.findViewById(R.id.budget);
         goalDate=(TextView)this.findViewById(R.id.goalDate);
         budgetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
         Log.d("MainActivity", "onCreate: starting to create chart");
@@ -192,10 +190,9 @@ public class MainActivity extends AppCompatActivity
             spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
             spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
             double goal = Double.parseDouble(spendGoal);
-            spendLeft = Double.toString(goal - 12);
+            spendLeft = Double.toString(goal);
 
             goalDate.setText(spendDate);
-            budget.setText("$" + spendGoal);
             budgetLeftResult.setText("$" + spendLeft);
         }
     }
