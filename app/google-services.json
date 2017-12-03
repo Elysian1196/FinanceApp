@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "866431709587-c4fboafp285qi3h8i75m0eem9g5f6634.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.matthewspc.financeapp",
+            "certificate_hash": "0a9d0114344d45af6413d90e8f6f4d7a84dc9f88"
+          }
+        },
+        {
           "client_id": "866431709587-q14i13g7745fiebvr6dk0k8h6pbadrtm.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866431709587-q14i13g7745fiebvr6dk0k8h6pbadrtm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

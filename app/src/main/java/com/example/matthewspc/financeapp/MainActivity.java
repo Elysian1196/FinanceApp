@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity
     {
         //the listener doesn't do anything yet (the listener is defined in the XML file)
         startActivity(new Intent(MainActivity.this, RegisterPage.class));
-        //here is a test comment
     }
 
     public void expensesButton(View view) //defines listener for the ExpensesTable Activity
