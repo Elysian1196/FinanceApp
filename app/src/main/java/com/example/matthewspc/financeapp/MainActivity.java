@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         pieChart = (PieChart) findViewById(R.id.idPieChart);
         profile = new ProfileDatabase(this);
 
-        if (checkDatabase())
+        if (profile.checkDatabase())
         {
             try {
                 convertDatabase();
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 spendGoal = data.getStringExtra("spendGoal");//get extras
                 spendDate = data.getStringExtra("spendDate");
+                Toast.makeText(this, spendGoal+spendDate,Toast.LENGTH_SHORT).show();
 
                 profile.updateProfile(spendGoal,spendDate);//adds new log with values
                 try {
@@ -187,24 +190,6 @@ public class MainActivity extends AppCompatActivity
         return toIntExact(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
     }
 
-    private boolean checkDatabase()//checks if database has data
-    {
-        SQLiteDatabase db = profile.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + profile.DATABASE_TABLE +";", null);
-        if(cursor != null){
-            cursor.moveToFirst();
-            //int count = cursor.getInt(0);
-            //if(count>0)
-            //{
-            //    return true;
-            //}
-
-        }
-            return false;
-    }
-
-
-
     private void convertDatabase() throws ParseException
     {//converts sqlite cursor to the textview
         Cursor cursor = profile.getLog();
@@ -216,6 +201,11 @@ public class MainActivity extends AppCompatActivity
 
             goalDate.setText(spendDate);
             budgetLeftResult.setText("$" + spendLeft);
+            Toast.makeText(this, spendGoal+spendDate,Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "fail",Toast.LENGTH_SHORT).show();
         }
     }
 }
