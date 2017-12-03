@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         if (profile.checkDatabase())
         {
             try {
-                profile.spend("12");//TEST
                 convertDatabase();
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -123,8 +122,6 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 spendGoal = data.getStringExtra("spendGoal");//get extras
                 spendDate = data.getStringExtra("spendDate");
-                Toast.makeText(this, spendGoal+spendDate,Toast.LENGTH_SHORT).show();
-
                 profile.updateProfile(spendGoal,spendDate);//adds new log with values
                 try {
                     convertDatabase();
@@ -205,7 +202,6 @@ public class MainActivity extends AppCompatActivity
 
             goalDate.setText(spendDate);
             budgetLeftResult.setText("$" + spendLeft);
-            //Toast.makeText(this, spendGoal+spendDate,Toast.LENGTH_SHORT).show();
         }
         else
         {
