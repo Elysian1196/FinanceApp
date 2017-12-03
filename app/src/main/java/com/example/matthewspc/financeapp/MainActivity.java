@@ -1,5 +1,6 @@
 package com.example.matthewspc.financeapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -54,24 +55,16 @@ public class MainActivity extends AppCompatActivity
         budgetLeftResult=(TextView)this.findViewById(R.id.budgetLeftResult);
         Log.d("MainActivity", "onCreate: starting to create chart");
         pieChart = (PieChart) findViewById(R.id.idPieChart);
+        profile = new ProfileDatabase(this);
 
-
-
-        /*
-
-
-
-
-         */
-        ProfileDatabase profile = new ProfileDatabase(this);//creates database
-        /*if (checkDatabase())
+        if (checkDatabase())
         {
             try {
                 convertDatabase();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
         Description text = new Description();
         text.setText("Total budget: " + spendGoal);
         pieChart.setDescription(text);
@@ -176,11 +169,10 @@ public class MainActivity extends AppCompatActivity
     private boolean checkDatabase()//checks if database has data
     {
         SQLiteDatabase db = profile.getWritableDatabase();
-        String count = "SELECT count(*) FROM table";
-        Cursor mcursor = db.rawQuery(count, null);
-        mcursor.moveToFirst();
-        int icount = mcursor.getInt(0);
-        if(icount>0)
+        Cursor cursor = db.rawQuery("SELECT * FROM " + profile.DATABASE_TABLE +";", null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        if(count>0)
         {
             return true;
         }
