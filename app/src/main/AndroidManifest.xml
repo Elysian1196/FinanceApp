@@ -25,7 +25,9 @@
         <activity android:name=".GroupProfilePage" />
         <activity android:name=".LoginPage" />
         <activity android:name=".CreateGroup" />
-        <activity android:name=".JoinGroup"></activity>
+        <activity android:name=".JoinGroup" />
+        <activity android:name=".IndividualGroupMenu" />
+        <activity android:name=".GroupFunding"></activity>
     </application>
 
 </manifest>
