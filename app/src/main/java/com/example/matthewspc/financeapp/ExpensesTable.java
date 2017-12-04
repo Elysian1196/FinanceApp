@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ExpensesTable extends AppCompatActivity {
 
@@ -36,17 +38,22 @@ public class ExpensesTable extends AppCompatActivity {
         addExpense();
         backButton();
         showExpenses();
-
     }
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //when we come back from the AddExpense activity
+        ProfileDatabase profile = new ProfileDatabase(this);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"), String.valueOf((Double.parseDouble(data.getStringExtra("purchaseCost")))), data.getStringExtra("purchaseTag"));
-
+                ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"),
+                        String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))),
+                        data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
+                if(profile.checkDatabase()){
+                    profile.spend(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
+                }
+                Log.d("Whats the long", uhOh+"");
                 showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {
 
@@ -56,6 +63,7 @@ public class ExpensesTable extends AppCompatActivity {
 
 
     private void showExpenses() {
+
         Cursor cursor = database.getAllExpenses();//first we get a cursor
         if (cursor == null) {//and check if null, etc
             return;
@@ -75,6 +83,11 @@ public class ExpensesTable extends AppCompatActivity {
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        ProfileDatabase profile = new ProfileDatabase(getApplicationContext());
+                        ExpenseLogEntryData gorillion = database.getExpense(id_value);
+                        if(profile.checkDatabase()){
+                            profile.spend('-'+gorillion.getCost());
+                        }
                         database.deleteExpense(id_value);
                         Cursor c = database.getAllExpenses();
                         customAdapter.swapCursor(c);

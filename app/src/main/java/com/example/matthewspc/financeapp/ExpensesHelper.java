@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Beast_07 on 11/28/2017.
@@ -64,11 +65,19 @@ public class ExpensesHelper extends SQLiteOpenHelper{
     // Getting single Expense
     public ExpenseLogEntryData getExpense(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
-                        KEY_NAME, KEY_COST, KEY_DATE, KEY_TAG }, KEY_ID + "= " + id,
-                null, null, null, null, null);
-        cursor.moveToPosition(id);
-        ExpenseLogEntryData expense = new ExpenseLogEntryData((cursor.getString(1)),cursor.getString(2), cursor.getString(3));
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{ KEY_ID,
+                        KEY_NAME,
+                        KEY_COST,
+                        KEY_DATE,
+                        KEY_TAG },
+                KEY_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null, null);
+        cursor.moveToFirst();
+        //Log.d("Thisisatest",cursor.getCount()+"");
+        ExpenseLogEntryData expense = new ExpenseLogEntryData((cursor.getString(1)),cursor.getString(2), cursor.getString(3), cursor.getString(4));
+
         return expense;
     }
 
@@ -116,6 +125,7 @@ public class ExpensesHelper extends SQLiteOpenHelper{
             cursor.close();
             result = true;
         }
+
         //Add back some monies from the big table
         db.close();
         return result;

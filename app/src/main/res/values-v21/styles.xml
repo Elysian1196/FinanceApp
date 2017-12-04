@@ -8,6 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/babyblue</item>
         <item name="android:colorBackground">@android:color/background_light</item>
-        <item name="android:navigationBarColor">@color/navbarcolor</item>
+        <item name="android:navigationBarColor">@color/babypink</item>
     </style>
 </resources>
