@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "866431709587-3anosq37l48r5l77bpp1gu96mi2ilv1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.matthewspc.financeapp",
+            "certificate_hash": "1c397f631b7641775da27a78297fd378952fb119"
+          }
+        },
+        {
           "client_id": "866431709587-fg88v7583h9crq6sv80kbevbbljf5pv8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

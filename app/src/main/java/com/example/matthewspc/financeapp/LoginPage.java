@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginPage extends AppCompatActivity implements View.OnClickListener{
     private Button buttonSignIn;
@@ -23,11 +25,11 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     private EditText editTextPassword;
     private TextView textViewSignup;
 
-    //firebase auth object
     private FirebaseAuth firebaseAuth;
-
-    //progress dialog
     private ProgressDialog progressDialog;
+    private String userId;
+    //progress dialog
+    private DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,12 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         //means user is already logged in
         if(firebaseAuth.getCurrentUser() != null){
             //close this activity
+            Intent myintent=new Intent(LoginPage.this, GroupProfilePage.class).putExtra("UserEmail", firebaseAuth.getCurrentUser().getEmail());
             finish();
-            //opening profile activity
-            startActivity(new Intent(getApplicationContext(), GroupProfilePage.class));
+            startActivity(myintent);
         }
 
+        databaseUsers= FirebaseDatabase.getInstance().getReference("users");
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -66,12 +69,12 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
         if(view == textViewSignup){
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, RegisterPage.class));
         }
     }
 
     private void userLogin() {
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
 
@@ -102,9 +105,13 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                         progressDialog.dismiss();
                         //if the task is successfull
                         if (task.isSuccessful()) {
+
+
                             //start the profile activity
+                            //String id databaseUsers.child(id).setValue(user);
+                            Intent myintent=new Intent(LoginPage.this, GroupProfilePage.class).putExtra("UserEmail", email);
                             finish();
-                            startActivity(new Intent(getApplicationContext(), GroupProfilePage.class));
+                            startActivity(myintent);
                         }
                     }
                 });

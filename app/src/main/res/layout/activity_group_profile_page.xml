@@ -26,8 +26,9 @@
         app:layout_constraintVertical_bias="0.017" />
 
     <ListView
-        android:layout_width="333dp"
-        android:layout_height="358dp"
+        android:id="@+id/listViewGroups"
+        android:layout_width="342dp"
+        android:layout_height="367dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,12 +50,11 @@
         android:text="Create Group"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.143" />
 
-    <Button
+    <!--<Button
         android:id="@+id/buttonJoinGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
         app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.154" />-->
 
     <TextView
         android:id="@+id/textViewUserEmail"
