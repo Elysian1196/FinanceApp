@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity
             /*Aight Julia heres where you put the pie chart stuff
             each time we iterate through this for loop section Tag will be the current purchases tag (In string form)
             and price will be how much it cost (In a double)
-            put what seems right here and tell me when it's ready to rumble.
-            */
+            put what seems right here and tell me when it's ready to rumble.*/
             financeCursor.moveToNext();
         }
         addDataSet();
