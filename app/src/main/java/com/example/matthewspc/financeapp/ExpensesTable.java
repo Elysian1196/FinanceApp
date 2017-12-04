@@ -50,7 +50,9 @@ public class ExpensesTable extends AppCompatActivity {
                         String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))),
                         data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
-                profile.updateProfile(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
+                if(profile.checkDatabase()){
+                    profile.updateProfile(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
+                }
                 Log.d("Whats the long", uhOh+"");
                 showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {
@@ -83,7 +85,9 @@ public class ExpensesTable extends AppCompatActivity {
                     public void onClick(View view) {
                         ProfileDatabase profile = new ProfileDatabase(getApplicationContext());
                         ExpenseLogEntryData gorillion = database.getExpense(id_value);
-                        profile.updateProfile("-"+gorillion.getCost());
+                        if(profile.checkDatabase()){
+                            profile.updateProfile("-"+gorillion.getCost());
+                        }
                         database.deleteExpense(id_value);
                         Cursor c = database.getAllExpenses();
                         customAdapter.swapCursor(c);

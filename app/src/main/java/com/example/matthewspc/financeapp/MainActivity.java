@@ -63,14 +63,12 @@ public class MainActivity extends AppCompatActivity
         pieChart = (PieChart) findViewById(R.id.idPieChart);
         profile = new ProfileDatabase(this);
 
-        if (profile.checkDatabase())
-        {
-            try {
-                convertDatabase();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        try {
+            convertDatabase();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
         Description text = new Description();
         text.setText("Total budget: " + spendGoal);
         pieChart.setDescription(text);
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         Cursor financeCursor = Finances.getAllExpenses();
         if (financeCursor == null) {//and check if null, etc
 
-        } else while(financeCursor.getCount() < 0) {
+        } else while(financeCursor.getCount() > 0) {
             int k = financeCursor.getInt(financeCursor.getColumnIndex("_id"));
             ExpenseLogEntryData row = Finances.getExpense(k);
             String priceString = row.getCost();
@@ -192,7 +190,7 @@ public class MainActivity extends AppCompatActivity
     private void convertDatabase() throws ParseException
     {//converts sqlite cursor to the textview
         Cursor cursor = profile.getLog();
-        if (cursor.moveToFirst()) {
+        if (profile.checkDatabase()) {
             spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
             spentGoal = cursor.getString(cursor.getColumnIndex(profile.SPENT));
             spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(this, "fail",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "empty",Toast.LENGTH_SHORT).show();
         }
     }
 }

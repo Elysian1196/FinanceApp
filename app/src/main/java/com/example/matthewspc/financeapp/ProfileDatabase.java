@@ -91,16 +91,17 @@ public class ProfileDatabase extends SQLiteOpenHelper
 
     public boolean checkDatabase()
     {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+DATABASE_TABLE+"'", null);
-        if(cursor!=null) {
-            if(cursor.getCount()>0) {
-                cursor.close();
-                return true;
-            }
+        Cursor cursor = getLog();
+        if (cursor.getCount()>0)
+        {
             cursor.close();
+            return true;
         }
-        return false;
+        else
+        {
+            cursor.close();
+            return false;
+        }
     }
 
     public void spend(String value)
