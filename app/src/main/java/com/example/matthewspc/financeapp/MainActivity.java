@@ -70,7 +70,17 @@ public class MainActivity extends AppCompatActivity
         }
 
         Description text = new Description();
-        text.setText("Total budget: " + spendGoal);
+        if(profile.checkDatabase())
+        {
+            Cursor cursor = profile.getLog();
+            spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+            text.setText("Total budget: $" + spendGoal);
+        }
+        else
+        {
+            text.setText("Total budget: $0");
+        }
+
         pieChart.setDescription(text);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
