@@ -43,12 +43,14 @@ public class ExpensesTable extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //when we come back from the AddExpense activity
+        ProfileDatabase profile = new ProfileDatabase(this);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 ExpenseLogEntryData newBoi = new ExpenseLogEntryData(data.getStringExtra("purchaseName"),
-                        String.format(Locale.getDefault(),"%.2f",(Double.parseDouble(data.getStringExtra("purchaseCost")))),
+                        String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))),
                         data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
+                profile.updateProfile(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
                 Log.d("Whats the long", uhOh+"");
                 showExpenses();
             } if (resultCode == Activity.RESULT_CANCELED) {
@@ -59,6 +61,7 @@ public class ExpensesTable extends AppCompatActivity {
 
 
     private void showExpenses() {
+
         Cursor cursor = database.getAllExpenses();//first we get a cursor
         if (cursor == null) {//and check if null, etc
             return;
@@ -78,6 +81,9 @@ public class ExpensesTable extends AppCompatActivity {
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        ProfileDatabase profile = new ProfileDatabase(getApplicationContext());
+                        ExpenseLogEntryData gorillion = database.getExpense(id_value);
+                        profile.updateProfile("-"+gorillion.getCost());
                         database.deleteExpense(id_value);
                         Cursor c = database.getAllExpenses();
                         customAdapter.swapCursor(c);
