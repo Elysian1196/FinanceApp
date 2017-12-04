@@ -86,7 +86,7 @@ public class ExpensesTable extends AppCompatActivity {
                         ProfileDatabase profile = new ProfileDatabase(getApplicationContext());
                         ExpenseLogEntryData gorillion = database.getExpense(id_value);
                         if(profile.checkDatabase()){
-                            profile.spend("-"+gorillion.getCost());
+                            profile.spend('-'+gorillion.getCost());
                         }
                         database.deleteExpense(id_value);
                         Cursor c = database.getAllExpenses();

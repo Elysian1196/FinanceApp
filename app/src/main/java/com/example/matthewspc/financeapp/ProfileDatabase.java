@@ -8,8 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ProfileDatabase extends SQLiteOpenHelper
 {
@@ -109,6 +111,6 @@ public class ProfileDatabase extends SQLiteOpenHelper
         Cursor cursor = getLog();
         Double spend = Double.parseDouble(value);
         Double pastSpend = Double.parseDouble(cursor.getString(cursor.getColumnIndex(SPENT)));
-        updateProfile(Double.toString(spend+pastSpend));
+        updateProfile(String.format(Locale.getDefault(),"%.2f", (spend+pastSpend)));
     }
 }
