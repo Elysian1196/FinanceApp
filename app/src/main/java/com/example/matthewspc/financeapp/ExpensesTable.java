@@ -51,7 +51,7 @@ public class ExpensesTable extends AppCompatActivity {
                         data.getStringExtra("purchaseTag"));
                 long uhOh = database.addExpense(newBoi);
                 if(profile.checkDatabase()){
-                    profile.updateProfile(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
+                    profile.spend(String.format(Locale.getDefault(),"%.2f", (Double.parseDouble(data.getStringExtra("purchaseCost")))));
                 }
                 Log.d("Whats the long", uhOh+"");
                 showExpenses();
@@ -86,7 +86,7 @@ public class ExpensesTable extends AppCompatActivity {
                         ProfileDatabase profile = new ProfileDatabase(getApplicationContext());
                         ExpenseLogEntryData gorillion = database.getExpense(id_value);
                         if(profile.checkDatabase()){
-                            profile.updateProfile("-"+gorillion.getCost());
+                            profile.spend("-"+gorillion.getCost());
                         }
                         database.deleteExpense(id_value);
                         Cursor c = database.getAllExpenses();

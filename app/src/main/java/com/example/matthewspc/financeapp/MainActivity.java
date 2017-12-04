@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         Cursor financeCursor = Finances.getAllExpenses();
         if (financeCursor == null) {//and check if null, etc
 
-        } else while(financeCursor.getCount() > 0) {
+        } else while(financeCursor.moveToNext()) {
             int k = financeCursor.getInt(financeCursor.getColumnIndex("_id"));
             ExpenseLogEntryData row = Finances.getExpense(k);
             String priceString = row.getCost();

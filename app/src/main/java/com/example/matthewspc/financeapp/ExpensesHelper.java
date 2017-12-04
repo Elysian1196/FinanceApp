@@ -125,6 +125,7 @@ public class ExpensesHelper extends SQLiteOpenHelper{
             cursor.close();
             result = true;
         }
+
         //Add back some monies from the big table
         db.close();
         return result;
