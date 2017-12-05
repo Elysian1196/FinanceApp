@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
     private String spendGoal;
     private String spendDate;
     private String spendLeft;
-    private String spentGoal;
     private TextView goalDate;
     private TextView budgetLeftResult;
     private ProfileDatabase profile;
@@ -70,11 +69,10 @@ public class MainActivity extends AppCompatActivity
         }
 
         Description text = new Description();
-        if(profile.checkDatabase())
-        {
+        if(profile.checkDatabase()) {
             Cursor cursor = profile.getLog();
-            spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
-            text.setText("Total budget: $" + spendGoal);
+            String work = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+            text.setText("Total budget: $" + work);
         }
         else
         {
@@ -135,6 +133,23 @@ public class MainActivity extends AppCompatActivity
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                Description text = new Description();
+                if(profile.checkDatabase()) {
+                    Cursor cursor = profile.getLog();
+                    String work = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+                    text.setText("Total budget: $" + work);
+                }
+                else
+                {
+                    text.setText("Total budget: $0");
+                }
+
+                pieChart.setDescription(text);
+                pieChart.setRotationEnabled(true);
+                pieChart.setHoleRadius(25f);
+                pieChart.setTransparentCircleAlpha(0);
+                pieChart.setDrawEntryLabels(true);
+                pieChart.setEntryLabelTextSize(20);
             }
         }
     }
@@ -201,14 +216,14 @@ public class MainActivity extends AppCompatActivity
         Cursor cursor = profile.getLog();
         if (profile.checkDatabase()) {
             spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
-            spentGoal = cursor.getString(cursor.getColumnIndex(profile.SPENT));
+            spendLeft = cursor.getString(cursor.getColumnIndex(profile.SPENT));
             spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
             double goal = Double.parseDouble(spendGoal);
-            double spent = Double.parseDouble(spentGoal);
-            spendLeft = Double.toString(goal-spent);
+            double spent = Double.parseDouble(spendLeft);
+            String spentLeft = Double.toString(goal-spent);
 
             goalDate.setText(spendDate);
-            budgetLeftResult.setText("$" + spendLeft);
+            budgetLeftResult.setText("$" + spentLeft);
         }
         else
         {
