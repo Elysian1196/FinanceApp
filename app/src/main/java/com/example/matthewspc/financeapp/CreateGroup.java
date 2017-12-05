@@ -24,6 +24,7 @@ public class CreateGroup extends AppCompatActivity {
         createGroupSubmit=(Button) findViewById(R.id.createGroupSubmit);
         createGroupNameInput=(EditText) findViewById(R.id.createGroupNameInput);
         createGroupGoalInput=(EditText) findViewById(R.id.createGroupGoalInput);
+
     }
 
     public void submit(View view)//defines listener for Submit button

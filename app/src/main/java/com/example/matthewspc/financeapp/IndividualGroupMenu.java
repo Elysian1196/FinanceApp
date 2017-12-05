@@ -18,6 +18,7 @@ public class IndividualGroupMenu extends AppCompatActivity {
     private String groupGoal;
     private String groupAmount;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
