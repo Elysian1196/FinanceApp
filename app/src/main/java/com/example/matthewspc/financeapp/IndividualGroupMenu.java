@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class IndividualGroupMenu extends AppCompatActivity {
 
+
     private TextView textGroupProgress;
     private DatabaseReference databaseGroup;
     private String groupId;
