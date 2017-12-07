@@ -2,22 +2,15 @@ package com.example.matthewspc.financeapp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.EventLogTags;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +21,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static android.support.v4.app.NotificationCompat.*;
+import static android.support.v4.app.NotificationCompat.Builder;
 import static java.lang.Math.toIntExact;
 
 public class MainActivity extends AppCompatActivity
@@ -135,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 spendLeftNum -= price;
             } while (financeCursor.moveToNext());
         }
-        yData = new float[]{groceries*100/spent, diningOut*100/spent, rent*100/spent, utilities*100/spent, travel*100/spent, clothes*100/spent, other*100/spent};
+        yData = new float[]{groceries/spent, diningOut/spent, rent/spent, utilities/spent, travel/spent, clothes/spent, other/spent};
         addDataSet();
     }
 

@@ -132,10 +132,10 @@ public class GroupProfilePage extends AppCompatActivity implements View.OnClickL
         });
     }
 
-   /* public void joinGroup(View view) //defines listener for the Join Group Activity
+    public void joinGroup(View view) //defines listener for the Join Group Activity
     {
         startActivityForResult(new Intent(GroupProfilePage.this, JoinGroup.class), 1);
-    }*/
+    }
 
     public void createGroup(View view)//defines listener for the Create Group Activity
     {
