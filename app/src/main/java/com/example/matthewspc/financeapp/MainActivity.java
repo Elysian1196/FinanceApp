@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 spendLeftNum -= price;
             } while (financeCursor.moveToNext());
         }
-        yData = new float[]{groceries/spent, diningOut/spent, rent/spent, utilities/spent, travel/spent, clothes/spent, other/spent};
+        yData = new float[]{groceries*100/spent, diningOut*100/spent, rent*100/spent, utilities*100/spent, travel*100/spent, clothes*100/spent, other*100/spent};
         addDataSet();
     }
 
