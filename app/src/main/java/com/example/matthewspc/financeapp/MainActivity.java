@@ -129,9 +129,6 @@ public class MainActivity extends AppCompatActivity
                 spendLeftNum -= price;
             } while (financeCursor.moveToNext());
         }
-        Log.d("HERE IS A TEST", Float.toString(groceries));
-        Log.d("HERE IS A SECOND TEST", Float.toString(spent));
-        Log.d("HERE IS A THIRD TEST", Float.toString(groceries/spent));
         yData = new float[]{groceries*100/spent, diningOut*100/spent, rent*100/spent, utilities*100/spent, travel*100/spent, clothes*100/spent, other*100/spent};
         addDataSet();
     }
@@ -184,6 +181,7 @@ public class MainActivity extends AppCompatActivity
                 pieChart.setTransparentCircleAlpha(0);
                 pieChart.setDrawEntryLabels(true);
                 pieChart.setEntryLabelTextSize(20);
+                yData = new float[]{0, 0,0, 0, 0, 0, 0};
             }
         }
         addDataSet();
