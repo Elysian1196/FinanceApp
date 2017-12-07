@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import static com.example.matthewspc.financeapp.ProfileDatabase.DATABASE_TABLE;
+
 /**
  * Created by Beast_07 on 11/28/2017.
  */
@@ -115,6 +117,7 @@ public class ExpensesHelper extends SQLiteOpenHelper{
         boolean result = false;
         SQLiteDatabase db = this.getWritableDatabase();
 
+
         String q = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID
                 + " = \"" + id + "\"";
         Cursor cursor = db.rawQuery(q, null);
@@ -129,6 +132,12 @@ public class ExpensesHelper extends SQLiteOpenHelper{
         //Add back some monies from the big table
         db.close();
         return result;
+    }
+
+    public void removeAll()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DATABASE_NAME, null, null);
     }
 
 

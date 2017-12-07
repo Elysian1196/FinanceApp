@@ -1,10 +1,15 @@
 package com.example.matthewspc.financeapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import static android.support.v4.app.NotificationCompat.*;
 import static java.lang.Math.toIntExact;
 
 public class MainActivity extends AppCompatActivity
@@ -133,6 +139,44 @@ public class MainActivity extends AppCompatActivity
         addDataSet();
     }
 
+    public void notifyMe(View view){
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel("fuq", "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+
+            notificationChannel.setDescription("Channel description");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            mNotificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Cursor cursor = profile.getLog();
+        if (profile.checkDatabase()) {
+            spendGoal = cursor.getString(cursor.getColumnIndex(profile.GOAL));
+            spendLeft = cursor.getString(cursor.getColumnIndex(profile.SPENT));
+            spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
+            double goal = Double.parseDouble(spendGoal);
+            double spent = Double.parseDouble(spendLeft);
+            String spentLeft = Double.toString(goal-spent);
+
+            goalDate.setText(spendDate);
+            budgetLeftResult.setText("$" + spentLeft);
+        }
+
+        Builder builder = new Builder(this, "fuq")
+                .setVibrate(new long[]{0, 100, 100, 100, 100, 100})
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Your total budget is: "+spendGoal)
+                .setContentText("You've spent "+spendLeft+" of it!");
+
+        mNotificationManager.notify(1, builder.build());
+
+    }
+
     public void updateProfile(View view) //defines listener for the UpdateProfile Activity
     {
         startActivityForResult(new Intent(MainActivity.this, UpdateProfile.class), 1);
@@ -160,6 +204,7 @@ public class MainActivity extends AppCompatActivity
                 spendLeftNum = Float.parseFloat(spendGoal);
                 profile.updateProfile(spendGoal,spendDate);//adds new log with values
                 try {
+                    Finances.removeAll();
                     convertDatabase();
                 } catch (ParseException e) {
                     e.printStackTrace();
