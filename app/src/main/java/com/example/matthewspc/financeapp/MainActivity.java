@@ -304,9 +304,5 @@ public class MainActivity extends AppCompatActivity
             goalDate.setText(spendDate);
             budgetLeftResult.setText("$" + spentLeft);
         }
-        else
-        {
-            Toast.makeText(this, "empty",Toast.LENGTH_SHORT).show();
-        }
     }
 }
