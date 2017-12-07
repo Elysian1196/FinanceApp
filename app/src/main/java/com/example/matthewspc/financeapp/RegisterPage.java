@@ -63,7 +63,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
     private void registerUser(){
         //getting email and password from edit texts
-        final String email = editTextEmail.getText().toString().trim();
+        String getEmail = editTextEmail.getText().toString().trim();
+        final String email = getEmail;
         String password  = editTextPassword.getText().toString().trim();
 
         //checking if email and passwords are empty
@@ -82,7 +83,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
-
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

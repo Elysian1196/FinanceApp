@@ -43,11 +43,22 @@ public class MainActivity extends AppCompatActivity
     private ProfileDatabase profile;
 
 
+    private float spendGoalNum=1;
+    private float spendLeftNum=1;
+
+
+    private float groceries=0;
+    private float diningOut=0;
+    private float rent=0;
+    private float utilities=0;
+    private float travel=0;
+    private float clothes=0;
+    private float other=0;
+
+    private float spent = 1;//spendGoalNum - spendLeftNum;
     ExpensesHelper Finances = new ExpensesHelper(this);
 
-
-
-    private float[] yData = {25.3f, 42.6f, 66.76f, 44,32f, 46.01f, 48.89f, 23.9f};
+    private float[] yData = {groceries*100/spent, diningOut*100/spent, rent*100/spent, utilities*100/spent, travel*100/spent, clothes*100/spent, other*100/spent};
     private String[] xData = {"Groceries", "Dining Out","Rent","Utilities","Travel","Clothes","Other"};
     PieChart pieChart;
 
@@ -86,22 +97,42 @@ public class MainActivity extends AppCompatActivity
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelTextSize(20);
 
-
         Cursor financeCursor = Finances.getAllExpenses();
         if (financeCursor == null) {//and check if null, etc
 
-        } else while(financeCursor.moveToNext()) {
-            int k = financeCursor.getInt(financeCursor.getColumnIndex("_id"));
-            ExpenseLogEntryData row = Finances.getExpense(k);
-            String priceString = row.getCost();
-            double price = Double.valueOf(priceString);
-            String tag= row.getTag();
-            /*Aight Julia heres where you put the pie chart stuff
-            each time we iterate through this for loop section Tag will be the current purchases tag (In string form)
-            and price will be how much it cost (In a double)
-            put what seems right here and tell me when it's ready to rumble.*/
-            financeCursor.moveToNext();
+        } else if(financeCursor.moveToFirst()) {
+            do {
+                int k = financeCursor.getInt(financeCursor.getColumnIndex("_id"));
+                ExpenseLogEntryData row = Finances.getExpense(k);
+                String priceString = row.getCost();
+                float price = Float.valueOf(priceString);
+                String tag = row.getTag();
+                System.out.println(tag);
+                System.out.println(price);
+
+                if (tag.equals("Groceries")) {
+                    groceries += price;
+                    System.out.println("groceries" + groceries);
+                } else if (tag.equals("Dining Out")) {
+                    diningOut += price;
+                } else if (tag.equals("Rent")) {
+                    rent += price;
+                } else if (tag.equals("Utilities")) {
+                    utilities += price;
+                } else if (tag.equals("Travel")) {
+                    travel += price;
+                } else if (tag.equals("Clothes")) {
+                    clothes += price;
+                } else {
+                    other += price;
+                }
+                spendLeftNum -= price;
+            } while (financeCursor.moveToNext());
         }
+        Log.d("HERE IS A TEST", Float.toString(groceries));
+        Log.d("HERE IS A SECOND TEST", Float.toString(spent));
+        Log.d("HERE IS A THIRD TEST", Float.toString(groceries/spent));
+        yData = new float[]{groceries*100/spent, diningOut*100/spent, rent*100/spent, utilities*100/spent, travel*100/spent, clothes*100/spent, other*100/spent};
         addDataSet();
     }
 
@@ -127,6 +158,9 @@ public class MainActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 spendGoal = data.getStringExtra("spendGoal");//get extras
                 spendDate = data.getStringExtra("spendDate");
+
+                spendGoalNum = Float.parseFloat(spendGoal);
+                spendLeftNum = Float.parseFloat(spendGoal);
                 profile.updateProfile(spendGoal,spendDate);//adds new log with values
                 try {
                     convertDatabase();
@@ -152,10 +186,10 @@ public class MainActivity extends AppCompatActivity
                 pieChart.setEntryLabelTextSize(20);
             }
         }
+        addDataSet();
     }
 
     private void addDataSet() {
-        Log.d("MainActivity", "addDataSet started");
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
 
@@ -171,11 +205,20 @@ public class MainActivity extends AppCompatActivity
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Expense Percentages");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(17);
+        System.out.println(yEntrys.toString());
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.rgb(253,205,224));
         colors.add(Color.rgb(187,226,252));
+
+        colors.add(Color.rgb(250,154,154));
+        colors.add(Color.rgb(146,156,243));
+
+        colors.add(Color.rgb(246,206,206));
+        colors.add(Color.rgb(102,115,230));
+
+        colors.add(Color.rgb(233,106,106));
 
         pieDataSet.setColors(colors);
 
@@ -219,8 +262,9 @@ public class MainActivity extends AppCompatActivity
             spendLeft = cursor.getString(cursor.getColumnIndex(profile.SPENT));
             spendDate = cursor.getString(cursor.getColumnIndex(profile.DATE));
             double goal = Double.parseDouble(spendGoal);
-            double spent = Double.parseDouble(spendLeft);
-            String spentLeft = Double.toString(goal-spent);
+            double spentI = Double.parseDouble(spendLeft);
+            spent = Float.parseFloat(spendLeft);
+            String spentLeft = Double.toString(goal-spentI);
 
             goalDate.setText(spendDate);
             budgetLeftResult.setText("$" + spentLeft);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,6 +77,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     private void userLogin() {
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        Log.d("Testing", email);
+        Log.d("Testing", password);
 
 
         //checking if email and passwords are empty
@@ -99,7 +102,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
         //logging in the user
         firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(LoginPage.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();

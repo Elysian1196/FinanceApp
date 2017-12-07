@@ -20,8 +20,9 @@
         android:id="@+id/goalDateLabel"
         android:layout_width="70dp"
         android:layout_height="24dp"
-        android:layout_above="@+id/budgetLeftLabel"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/budgetLeftResult"
+        android:layout_toLeftOf="@+id/goalDate"
+        android:layout_toStartOf="@+id/goalDate"
         android:text="Goal Date: " />
 
     <Button
@@ -69,10 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/expensesButton"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/budgetLeftLabel"
-        android:layout_toRightOf="@+id/budgetLeftLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         tools:text="(Budget left)" />
 
     <TextView
@@ -81,9 +80,47 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/goalDateLabel"
         android:layout_alignBottom="@+id/goalDateLabel"
-        android:layout_toEndOf="@+id/goalDateLabel"
-        android:layout_toRightOf="@+id/goalDateLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         tools:text="Goal date2" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/goalDateLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="36dp"
+        android:text="Groceries, Dining Out" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:text="Rent, Utilities" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/goalDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Travel, Clothes" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/budgetLeftLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Other" />
 
 
 </RelativeLayout>
